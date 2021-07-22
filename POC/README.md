@@ -8,7 +8,7 @@ You will get an email with the license, we will need that later on.
 
 2. To set up Artifactory PRO with the docker container we will need to download a zip package with some required files to run it, you can download it from (here|https://jfrog.com/download-jfrog-platform/), depending on your OS.
 
-Then, clone the repository and "cd" into the artifactory directory.
+Then, clone the repository and `cd` into the artifactory directory.
 
 ```cd artifactory-terraform-module-registry/POC/artifactory```
 
@@ -18,7 +18,7 @@ Extract the file in there, it will have two directories `app/` and `var/`, we wi
 
 ```docker build -t tfregistry .```
 
-With this "Dockerfile" we are just copying the "terraformModuleRegistry.groovy" inside artifactory on this path "/var/opt/jfrog/artifactory/etc/artifactory/plugins/". Then we need to run the container.
+With this `Dockerfile` we are just copying the `terraformModuleRegistry.groovy` inside artifactory on this path `/var/opt/jfrog/artifactory/etc/artifactory/plugins/`. Then we need to run the container.
 
 4. Let's run artifactory. 
 
@@ -33,12 +33,12 @@ This let us know that is working.
 First apache needs to be set up as reverse proxy.
 
 1. Go into the artifactory UI at localhost:8082 and log in with user:`admin` password:`password`, there artifactory will guide you to change your password and it will ask you for your license, copy and past it from the email you got into the textbox and continue.
-Once you are in artifactory go to the "administration" tab at the left bottom go to "Artifactory" and the "HTTP settings" there set it up:
+Once you are in artifactory go to the `administration` tab at the left bottom go to `Artifactory` and the `HTTP settings` there set it up:
 - Server provider: apache
 - Internal hostname: localhost
 - Public server name: localhost
 - HTTP port: 8082
-and the click on download and the save. You will get an "Artifactory.conf" file.
+and the click on download and the save. You will get an `Artifactory.conf` file.
 
 Since you are in the artifactory directory, we need to get into the apache directory.
 
@@ -93,11 +93,11 @@ We are going to set up an ubuntu container and intall terraform to consume our m
 
 Then, the .terraformrc should look like this:
 
-```
-credentials "fd8cceb630d6.ngrok.io" {
-       token = "YWRtaW46bXlzZWNyZXRwYXNzd29yZA=="
-}
-```
+
+    credentials "fd8cceb630d6.ngrok.io" {
+           token = "YWRtaW46bXlzZWNyZXRwYXNzd29yZA=="
+    }
+
 
 3. Build the image
 
@@ -128,7 +128,8 @@ In main.tf you can now call the module with this references:
 2. Then, wherever you are, we need to create a `terraform-registry` file and upload it to the local-repo, in which the plugin will write.
 
     touch terraform-registry
-    curl -u admin:<password> -XPUT http://localhost:8082/artifactory/<local-repo-name>/terraform-registry -T terraform-registry
+
+    curl -u admin:your-password -XPUT http://localhost:8082/artifactory/local-repo-name/terraform-registry -T terraform-registry
 
 3. Let's upload your module.
 
