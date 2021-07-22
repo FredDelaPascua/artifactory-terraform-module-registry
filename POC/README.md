@@ -16,13 +16,13 @@ Extract the file in there, it will have two directories `app/` and `var/`, we wi
 
 3. We will build and image of Artifactory PRo with the plugin inside.
 
-```docker build -t tfregistry .```
+    docker build -t tfregistry .
 
 With this `Dockerfile` we are just copying the `terraformModuleRegistry.groovy` inside artifactory on this path `/var/opt/jfrog/artifactory/etc/artifactory/plugins/`. Then we need to run the container.
 
 4. Let's run artifactory. 
 
-```docker run --name artifactory -v $pwd/artifactory/var/:/var/opt/jfrog/artifactory -d -p 8081:8081 -p 8082:8082 tfregistry```
+    docker run --name artifactory -v $pwd/artifactory/var/:/var/opt/jfrog/artifactory -d -p 8081:8081 -p 8082:8082 tfregistry
 
 The you can go to localhost:8082 and you should see the jfrog logo starting artifactory. This might take some minutes.
 
@@ -42,7 +42,7 @@ and the click on download and the save. You will get an `Artifactory.conf` file.
 
 Since you are in the artifactory directory, we need to get into the apache directory.
 
-```cd ../apache/```
+    cd ../apache/
 
 Move the file to this location.
 
@@ -60,11 +60,11 @@ Also there is a `terraform.json` file that will bbe copied to the root in apache
 
 2. Build the image using the Dockerfile, this will copy the new modifyed files inside.
 
-```docker build -t apache .```
+    docker build -t apache .
 
 3. Run apache as reverse proxy.
 
-```docker run -dit --name proxy -p 80:80 apache```
+    docker run -dit --name proxy -p 80:80 apache
 
 Now, go to localhost on your nrowser and you should be able to see artifactory from there.
 
@@ -84,12 +84,13 @@ We are going to set up an ubuntu container and intall terraform to consume our m
 
 1. Go to consumer directory.
 
-```cd ../consumer```
+    cd ../consumer
 
 2. The important step here is that we have to create a `.terraformrc` file with the artifactory credencials on base64.
 
-```touch .terraformrc```
-```echo -n admin:<mysecretpassword> | openssl base64```
+    touch .terraformrc
+
+    echo -n admin:<mysecretpassword> | openssl base64
 
 Then, the .terraformrc should look like this:
 
@@ -103,16 +104,17 @@ Then, the .terraformrc should look like this:
 
 This will install everything that is needed and copy the credentials file to the user root.
 
-```docker build -t tfconsumer .```
+    docker build -t tfconsumer .
 
 4. Now, run the consumer.
 
-```docker run -it --name consumer tfconsumer```
+    docker run -it --name consumer tfconsumer
 
 This will leave the terminal open inside the container, there you can make a terraform file to consume the module.
 
-```mkdir terraform && cd terraform```
-```touch main.tf```
+    mkdir terraform && cd terraform
+
+    touch main.tf
 
 In main.tf you can now call the module with this references:
 
