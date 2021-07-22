@@ -2,11 +2,11 @@
 
 ## Setting up Artifactory PRO
 
-1. To test this plugin you will need to get an Artifactory PRO license, you can get one with the 30-days free trial (here|https://jfrog.com/start-free/#hosted).
+1. To test this plugin you will need to get an Artifactory PRO license, you can get one with the 30-days free trial [here](https://jfrog.com/start-free/#hosted).
 
 You will get an email with the license, we will need that later on.
 
-2. To set up Artifactory PRO with the docker container we will need to download a zip package with some required files to run it, you can download it from (here|https://jfrog.com/download-jfrog-platform/), depending on your OS.
+2. To set up Artifactory PRO with the docker container we will need to download a zip package with some required files to run it, you can download it from [here](https://jfrog.com/download-jfrog-platform/), depending on your OS.
 
 Then, clone the repository and `cd` into the artifactory directory.
 
@@ -49,11 +49,11 @@ Move the file to this location.
 Here we already have the configuration files.
 What I did in httpd.conf:
 
-Enable mod_proxy, mod_deflate, mod_proxy_html, mod_proxy_connect, mod_proxy_http, mod_proxy_balancer, mod_lbmethod_byrequests
-Include conf/extra/artifactory.conf
-Include conf/extra/httpd-vhosts.conf
+* Enable mod_proxy, mod_deflate, mod_proxy_html, mod_proxy_connect, mod_proxy_http, mod_proxy_balancer, mod_lbmethod_byrequests
+* Include conf/extra/artifactory.conf
+* Include conf/extra/httpd-vhosts.conf
 
-For httpd-vhosts.conf you need to add the redirect routes and copy the rewrite block inside <Virtualhost>. 
+For httpd-vhosts.conf you need to add the redirect routes and copy the rewrite block inside Virtualhost block. 
 The redirect routes are pointing to the artifactory's container IP, you can get that with `docker inspect artifactory`.
 
 Also there is a `terraform.json` file that will bbe copied to the root in apache, inside a `.well-known/` directory.
@@ -72,9 +72,9 @@ Now, go to localhost on your nrowser and you should be able to see artifactory f
 
 Terraform requires an HTTPS endpoint for the registry URL, as this poc is running locally we have an extra step to enable it.
 
-1. Go to (ngrok|https://ngrok.com/) and download it.
+1. Go to [ngrok](https://ngrok.com/) and download it.
 
-2. Here are the (instructions | https://dashboard.ngrok.com/get-started/setup) to setup.
+2. Here are the [instructions](https://dashboard.ngrok.com/get-started/setup) to setup.
 
 3. After running `./ngrok http 80`, you will get a https endpoint redirecting to your localhost:80. Thats the one we are gonna be using. Leave the terminal and open a new one.
 
@@ -151,7 +151,7 @@ Create a property set named `terraform`, and add the next properties:
 
 Then at the left side go to Repositories > Repositories, choose your repository and go to it's advance tab and move your new property set to the right.
 
-Afterwards go to you local repository, choose you <module-name>.tar.gz, pick your new property set and then set the values of each property.
+Afterwards go to you local repository, choose you `module-name`.tar.gz, pick your new property set and then set the values of each property.
 
 
 This should have evrything working now, go back to your consumer terminal and run `terraform init` to test it.
