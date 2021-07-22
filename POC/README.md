@@ -10,7 +10,7 @@ You will get an email with the license, we will need that later on.
 
 Then, clone the repository and `cd` into the artifactory directory.
 
-```cd artifactory-terraform-module-registry/POC/artifactory```
+    cd artifactory-terraform-module-registry/POC/artifactory
 
 Extract the file in there, it will have two directories `app/` and `var/`, we will need to point the volume for the container to the `var/` directory.
 
