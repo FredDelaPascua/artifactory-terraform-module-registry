@@ -70,7 +70,7 @@ Now, go to localhost on your nrowser and you should be able to see artifactory f
 
 ## Enable HTTPS
 
-Terraform requires an HTTPS endpoint for the registry URL, as this poc is running locally we have an extra step to enable it.
+Terraform requires a HTTPS endpoint for the registry URL, as this poc is running locally we have an extra step to enable it.
 
 1. Go to [ngrok](https://ngrok.com/) and download it.
 
