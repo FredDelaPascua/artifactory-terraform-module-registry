@@ -105,18 +105,18 @@ To set up an ubuntu container and intall Terraform to consume our modules.
 
 1. Create a `.terraformrc` file with the artifactory credentials on base64.
 ​
-	```
-		touch .terraformrc
+	
+        touch .terraformrc
 		
-		echo -n admin:<mysecretpassword> | openssl base64	
-	```
+	    echo -n admin:<mysecretpassword> | openssl base64	
+	
 1. Check that the `.terraformrc` looks like this:
 ​
-	```
+	
 	    credentials "fd8cceb630d6.ngrok.io" {
 	           token = "YWRtaW46bXlzZWNyZXRwYXNzd29yZA=="
 	    }
-	```
+	
 ​
 1. Build the image. This will install everything that is needed and copy the credentials file to the user root.
     
