@@ -15,17 +15,20 @@ To set up an Artiffactory PRO you need the following:
 To set up Artifactory PRO with the docker container:
 ​
 1. Clone the repository and cd into the Artifactory directory.    
-    `cd artifactory-terraform-module-registry/POC/artifactory`
+
+        `cd artifactory-terraform-module-registry/POC/artifactory`
 				
 1. Extract the file in there, it has two directories `app/` and `var/`. 
 1. Point the volume for the container to the `var/` directory.
 1. Build an image of Artifactory PRO with the plugin inside.
+
 		`docker build -t tfregistry .`
 ​
 
-	**Note:** This Dockerfile just copies the `terraformModuleRegistry.groovy` inside artifactory on this path: `/var/opt/jfrog/artifactory/etc/artifactory/plugins/`
+**Note:** This Dockerfile just copies the `terraformModuleRegistry.groovy` inside artifactory on this path: `/var/opt/jfrog/artifactory/etc/artifactory/plugins/`
 1. Run the container.
 1. Run the Artifactory.
+
 		`docker run --name artifactory -v $pwd/artifactory/var/:/var/opt/jfrog/artifactory -d -p 8081:8081 -p 8082:8082 tfregistry`
 1. Go to `localhost:8082` and see the Jfrog logo starting Artifactory to know that it is working. 
 	
@@ -53,7 +56,7 @@ To set up Apache:
 1. Click **Download** and then **Save**. You will get an `Artifactory.conf` file.
 1. Get into the apache directory because you are in the Artifactory directory, go to:
 
-    `cd ../apache/`
+        `cd ../apache/`
 
 1. Move the file to this location.
 ​
@@ -65,18 +68,18 @@ You already have the configuration files. For example, what I did in the `httpd.
 1. Include conf/extra/httpd-vhosts.conf
 1. For httpd-vhosts.conf, add the redirect routes and copy the rewrite block inside Virtualhost block. 
 	
-	**Note:** The redirect routes are pointing to the artifactory's container IP, you can get that with `docker inspect artifactory`.
+**Note:** The redirect routes are pointing to the artifactory's container IP, you can get that with `docker inspect artifactory`.
 ​
 1. Check that the `terraform.json` file is copied to the root in apache, inside a `.well-known/` directory.
 ​
 1. Build the image using the Dockerfile; it copies the newly modified files inside.
 ​
 
-    `docker build -t apache .`
+        `docker build -t apache .`
 ​
 1. Run apache as a reverse proxy.
     
-    `docker run -dit --name proxy -p 80:80 apache`
+        `docker run -dit --name proxy -p 80:80 apache`
 ​
 1. Go to localhost on your browser, and you should be able to see artifactory from there.
 ​
@@ -98,7 +101,8 @@ To set up an ubuntu container and intall Terraform to consume our modules.
 ​
 1. Go to consumer directory.
 
-    `cd ../consumer`
+        `cd ../consumer`
+
 1. Create a `.terraformrc` file with the artifactory credentials on base64.
 ​
 	```
@@ -116,11 +120,11 @@ To set up an ubuntu container and intall Terraform to consume our modules.
 ​
 1. Build the image. This will install everything that is needed and copy the credentials file to the user root.
     
-    `docker build -t tfconsumer .`
+        `docker build -t tfconsumer .`
 ​
 1. Run the consumer.
     
-    `docker run -it --name consumer tfconsumer`
+        `docker run -it --name consumer tfconsumer`
 ​
 1. Running the consumer will leave the terminal open inside the container, make a terraform file to consume the module.
 ​
